@@ -10,11 +10,21 @@
     <nav id="navbar">
         <ul>
             <li><a href="/">Books</a></li>
-            <li><a href="/login">Login</a></li>
-            <li><a href="/register">Register</a></li>
+            {{#if session.userid}}
+                <li><a href="/books/userbooks">Meus Livros</a></li>
+                <li><a href="/logout">Sair</a></li>
+            {{else}}
+                <li><a href="/login">Login</a></li>
+                <li><a href="/register">Register</a></li>
+            {{/if}}
         </ul>
     </nav>
     <div class="conteiner">
+        {{#if messages.message}}
+            <div class="message-conteiner">
+                <p>{{messages.message}}</p>
+            </div>
+        {{/if}}
         {{{body}}}
     </div>
 </body>

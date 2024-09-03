@@ -4,7 +4,6 @@ const app = express()
 const session = require("express-session")
 const FileStore = require("session-file-store")(session)
 const flash = require("express-flash")
-const User = require("./models/User")
 const conn = require("./db/conn")
 const BooksRoutes = require("./routes/booksRoutes")
 const BooksController = require("./controllers/booksController")
@@ -41,7 +40,7 @@ app.use(session(
 
 app.use((req, res, next) => {
     if(req.session.userid) {
-        req.locals.session = req.session
+        res.locals.session = req.session
     }
 
     next()

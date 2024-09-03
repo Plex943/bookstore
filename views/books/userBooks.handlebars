@@ -1,0 +1,23 @@
+<div class="Userbooks">
+    <div class="title-conteiner">
+        <h2>Seus Livros</h2>
+        <a href="/books/add" class="btn">Adicioanr Livro</a>
+    </div>
+    <ul>
+        {{#each books}}
+            <li>
+                <span class="label">{{this.title}}</span>
+                <span class="actions">
+                    <a href="/books/edit/{{this.id}}" class="btn">Editar</a>
+                    <form action="/books/remove" method="post">
+                        <input type="hidden" value="{{this.id}}" name="id">
+                        <input type="submit" value="Excluir" class="btn">
+                    </form>
+                </span>
+            </li>
+        {{/each}}
+        {{#if empityBooks}}
+            <p>você ainda não tem Livros <a href="/books/add">add Aqui</a></p>
+        {{/if}}
+    </ul>
+</div>

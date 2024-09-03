@@ -3,12 +3,17 @@
     margin: 0px;
 }
 
+.conteiner {
+    height: 60vh;
+    padding: 2em;
+}
+
 #navbar {
     background-color: #9a9aff;
     padding: 1.2em 1.6em;
     margin-bottom: 1em;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     border-bottom: 1px #1d1d1d solid;
 }
@@ -62,4 +67,49 @@
     font-family: sans-serif;
     font-size: 16px;
     padding: 6px;
+}
+
+.title-conteiner {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    margin-bottom: 1.5em;
+}
+
+.title-conteiner h2 {
+    padding: 10px;
+}
+
+.dashboard h3 {
+    margin-bottom: 1.5em;
+}
+
+.dashboard ul {
+    list-style: none;
+}
+
+.dashboard .label {
+    font-weight: bold;
+    margin-right: 2rem;
+}
+
+
+
+.dashboard li {
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.actions {
+    display: flex;
+}
+
+.dashboard .actions .btn {
+    margin: 0 0.5em;
+}
+
+.add-form-conteiner {
+    margin: 0 auto;
 }
