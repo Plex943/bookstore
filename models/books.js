@@ -12,7 +12,7 @@ const Books = sequelize.define('Books', {
         allowNull: false
     },
     year: {
-        type: DataTypes.DATE,
+        type: DataTypes.STRING,
         allowNull: false
     }
 });

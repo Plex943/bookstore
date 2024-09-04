@@ -1,1 +1,35 @@
-<h1>hoommmmeeee</h1>
+<div class="home-header">
+    {{#if search}}
+        <h1>Veja os resultados de <span>{{search}}</span> </h1>
+    {{else}}
+        <h1>Veja alguns <span>Livros</span>:</h1>
+    {{/if}}
+    <form action="/" method="get">
+        <input type="text" name="search" placeholder="procure um  pensamento...">
+        <input type="submit" class="btn" value="Buscar">
+    </form>
+    <div class="order-conteiner">
+        
+        <form action="/" method="get">
+            <input type="hidden" name="search" value="{{this.search}}">
+            <input type="hidden" name="order" value="new">
+            <button type="submit"><i class="bi bi-arrow-up"></i></button>
+        </form>
+        <form action="/" method="get">
+            <input type="hidden" name="search" value="{{this.search}}">
+            <input type="hidden" name="order" value="old">
+            <button type="submit"><i class="bi bi-arrow-down"></i></button>
+        </form>
+        <a href="/">Limpar</a>
+    </div>
+</div>
+<div class="toughts-conteiner">
+    {{#each books}}
+        <figure>
+            <blockquote>
+                {{this.title}}
+            </blockquote>
+            <figcaption>por <span>{{this.autor}}</span></figcaption>
+        </figure>
+    {{/each}}
+</div>

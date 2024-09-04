@@ -56,7 +56,7 @@ module.exports = class authController {
 
         const matchPassword = bcrypt.compareSync(password, user.password)
         if (!matchPassword){
-            req.flash("message", "senah incorreta!")
+            req.flash("message", "senha incorreta!")
             res.render("auth/login")
             return
         }
