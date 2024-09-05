@@ -1,18 +1,26 @@
 <div class="add-form-conteiner">
-    <a href="/books/userbooks">Voltar</a>
-    <h1>Adicione um livro ao Carrinho</h1>
     <form action="/books/add" method="post">
+        <a href="/books/userbooks">Voltar</a>
+        <h1>Adicione um livro ao Catalogo</h1>
         <div class="form-control">
             <label for="title">Livro:</label>
-            <input type="text", name="title" placeholder="Digite um Titulo">
+            <input type="text" name="title" placeholder="Digite um Titulo">
         </div>
         <div class="form-control">
             <label for="autor">Autor:</label>
-            <input type="text", name="autor" placeholder="Digite o nome do autor">
+            <input type="text" name="autor" placeholder="Digite o nome do autor">
         </div>
         <div class="form-control">
             <label for="year">Ano:</label>
-            <input type="text", name="year" placeholder="Digite o ano de lançamento">
+            <input type="text" name="year" placeholder="Digite o ano de lançamento">
+        </div>
+        <div class="form-control">
+            <label for="img">URL da Imagen:</label>
+            <input type="text" name="img" placeholder="Digite a url da imagen do livro">
+        </div>
+        <div class="form-control">
+            <label for="descripition">Descrição do Livro:</label>
+            <textarea name="descripition" placeholder="Descreva o Livro"></textarea>
         </div>
         <input type="submit" value="Adicionar Livro" class="btn">
     </form>

@@ -9,7 +9,14 @@ module.exports = class authController {
         res.render("auth/register")
     }
     static async registerPost(req, res) {
-        const {name,email, password, confirmpassword} = req.body
+        const {name,email, password, confirmpassword, accountType} = req.body
+        let admin = false
+
+        if (accountType ==="on") {
+            admin = true
+        } else {
+            admin = false
+        }
 
         if (password != confirmpassword) {
             req.flash("message", "As senha não conferem")
@@ -31,8 +38,9 @@ module.exports = class authController {
 
 
         try {
-            const CreatedUser = await User.create({name, email, password:hash})
+            const CreatedUser = await User.create({name, email, password:hash, admin})
             req.session.userid = CreatedUser.id
+            req.session.admin = admin
             req.flash("message", "Usuario criado com sucesso!")
 
             req.session.save(() => {
@@ -63,6 +71,7 @@ module.exports = class authController {
 
         try {
             req.session.userid = user.id
+            req.session.admin = user.admin
             req.flash("message", "Conectou ao usuario!")
 
             req.session.save(() => {

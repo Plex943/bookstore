@@ -12,7 +12,11 @@
         <ul>
             <li><a href="/">Books</a></li>
             {{#if session.userid}}
-                <li><a href="/books/userbooks">Meus Livros</a></li>
+                {{#if session.admin}}
+                    <li><a href="/books/userbooks">Add Livros</a></li>
+                {{else}}
+                    <li><a href="/books/userbooks">Meus Livros</a></li>    
+                {{/if}}
                 <li><a href="/logout">Sair</a></li>
             {{else}}
                 <li><a href="/login">Login</a></li>

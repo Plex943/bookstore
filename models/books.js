@@ -14,6 +14,14 @@ const Books = sequelize.define('Books', {
     year: {
         type: DataTypes.STRING,
         allowNull: false
+    },
+    img: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    descripition: {
+        type: DataTypes.STRING,
+        allowNull:false
     }
 });
 

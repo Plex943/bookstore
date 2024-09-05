@@ -61,12 +61,11 @@ module.exports = class BooksController{
     }
 
     static async addbookPost(req, res) {
-        const {title, autor, year} = req.body
+        const {title, autor, year, img, descripition} = req.body
         const userid = req.session.userid
 
         try {
-            console.log("book")
-            const book = await Books.create({ title, autor, year , UserId: userid})
+            const book = await Books.create({ title, autor, year , img, descripition, UserId: userid})
             req.flash("message", "Livro adicionado com sucesso!")
 
             req.session.save(() => {
@@ -81,7 +80,7 @@ module.exports = class BooksController{
         const id = req.params.id
         const book = await Books.findOne({where: {id:id}, raw: true})
 
-        res.render("books/editbooks", {book})
+        res.render("books/editbooks", {book: book})
     }
 
     static async editbooksPost(req, res) {
@@ -98,10 +97,21 @@ module.exports = class BooksController{
     static async remove(req, res) {
         const id = req.body.id
         await Books.destroy({where: {id:id}})
-        req.flash("message", "Livro Retirado com sucesso!")
+        req.flash("message", "Livro Removido do catalogo com sucesso!")
 
         req.session.save(() => {
             res.redirect("/books/userbooks")
         })
     }
 }
+
+
+/*  {{#if sesssion.admin}}
+    <span class="actions">
+        <a href="/books/edit/{{this.id}}" class="btn">Editar</a>
+        <form action="/books/remove" method="post">
+            <input type="hidden" value="{{this.id}}" name="id">
+            <input type="submit" value="Excluir" class="btn">
+        </form>
+    </span>
+{{/if}}*/

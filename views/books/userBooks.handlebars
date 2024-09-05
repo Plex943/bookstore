@@ -1,19 +1,20 @@
 <div class="Userbooks">
     <div class="title-conteiner">
-        <h2>Seus Livros</h2>
-        <a href="/books/add" class="btn">Adicioanar Livro</a>
+        {{#if session.admin}}
+            <h2>Livros que você adicionou no Catalogo</h2>
+        {{else}}
+            <h2>Seu carrinho</h2>
+        {{/if}}
+        {{#if session.admin}}
+            <a href="/books/add" class="btn">Adicionar</a>
+        {{/if}}
     </div>
     <ul>
         {{#each books}}
             <li>
+                <img src="{{this.img}}" alt="imagen de {{this.title}}" class="book-img">
                 <span class="label">{{this.title}}</span>
-                <span class="actions">
-                    <a href="/books/edit/{{this.id}}" class="btn">Editar</a>
-                    <form action="/books/remove" method="post">
-                        <input type="hidden" value="{{this.id}}" name="id">
-                        <input type="submit" value="Excluir" class="btn">
-                    </form>
-                </span>
+                <a href="/books/edit/{{this.id}}" class="btn">Detalhes</a>
             </li>
         {{/each}}
         {{#if empityBooks}}

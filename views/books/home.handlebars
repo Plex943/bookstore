@@ -23,13 +23,21 @@
         <a href="/">Limpar</a>
     </div>
 </div>
-<div class="toughts-conteiner">
+<div class="books-conteiner">
     {{#each books}}
         <figure>
-            <blockquote>
-                {{this.title}}
-            </blockquote>
-            <figcaption>por <span>{{this.autor}}</span></figcaption>
+            <span>
+                <img src="{{this.img}}" alt="imagem do Livro">
+                <label>
+                    <blockquote>
+                        {{this.title}}
+                    </blockquote>
+                    <figcaption>por: {{this.autor}}</figcaption>
+                </label>
+            </span>
+            <span>
+                <a href="/" class="btn">Add ao Carrinho</a>
+            </span>
         </figure>
     {{/each}}
 </div>
