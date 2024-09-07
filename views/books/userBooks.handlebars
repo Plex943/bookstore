@@ -2,10 +2,6 @@
     <div class="title-conteiner">
         {{#if session.admin}}
             <h2>Livros que você adicionou no Catalogo</h2>
-        {{else}}
-            <h2>Seu carrinho</h2>
-        {{/if}}
-        {{#if session.admin}}
             <a href="/books/add" class="btn">Adicionar</a>
         {{/if}}
     </div>
@@ -14,7 +10,7 @@
             <li>
                 <img src="{{this.img}}" alt="imagen de {{this.title}}" class="book-img">
                 <span class="label">{{this.title}}</span>
-                <a href="/books/edit/{{this.id}}" class="btn">Detalhes</a>
+                <a href="/books/edit/{{this.id}}" class="btn">Editar</a>
             </li>
         {{/each}}
         {{#if empityBooks}}

@@ -1,7 +1,10 @@
+const session = require("express-session")
 const Books = require("../models/books")
 const User = require("../models/User")
+const cartController = require("./cartController")
 const { Op } = require("sequelize")
 
+const CartController = new cartController
 module.exports = class BooksController{
 
     static async showBooks(req, res) {
@@ -16,11 +19,10 @@ module.exports = class BooksController{
         if (req.query.order === "old") {
             order = "ASC"
         } else {
-        order = "DESC"
+            order = "DESC"
         }
 
         const BooksData = await Books.findAll({
-            include: User,
             where: {
                 title: {[Op.like]: `%${search}%`}
             },
@@ -36,9 +38,8 @@ module.exports = class BooksController{
     static async userBooks(req, res) {
         const id = req.session.userid
 
-        const user = await User.findOne({
+        const user = await User.findOne({ 
             where: {id:id},
-            include: Books,
             plain: true
         })
 
@@ -46,7 +47,7 @@ module.exports = class BooksController{
             res.redirect("/register")
         }
 
-        const books = user.Books.map((results) => results.dataValues)
+        const books = await Books.findAll({where: {admin : id}, raw: true})
         let empityBooks = false
 
         if (books.lenght === 0) {
@@ -65,7 +66,7 @@ module.exports = class BooksController{
         const userid = req.session.userid
 
         try {
-            const book = await Books.create({ title, autor, year , img, descripition, UserId: userid})
+            const book = await Books.create({ title, autor, year , img, descripition, admin : userid })
             req.flash("message", "Livro adicionado com sucesso!")
 
             req.session.save(() => {
@@ -84,9 +85,9 @@ module.exports = class BooksController{
     }
 
     static async editbooksPost(req, res) {
-        const {id, title, autor, year} = req.body
+        const {id, title, autor, year, img, descripition} = req.body
         const book = await Books.findOne({where: {id:id}})
-        book.update({title, autor, year})
+        book.update({title, autor, year, img, descripition})
         req.flash("message", "Livro Editado com sucesso!")
 
         req.session.save(() => {
@@ -102,6 +103,55 @@ module.exports = class BooksController{
         req.session.save(() => {
             res.redirect("/books/userbooks")
         })
+    }
+
+    static async bookDetails(req, res) {
+        res.render("books/details")
+    }
+
+    static async addtocart(req, res) {
+        try{
+            const BookId = req.params.id
+            const UserId = req.session.userid
+            CartController.addBooksCart(UserId, BookId)
+            
+            req.flash("Message", "produto adicionado ao carrinho com sucesso!")
+            req.session.save(() => {
+                res.redirect("/")
+            })
+        } catch (err) {
+            console.log("ocorreu um erro ao adicionar no carrinho: ", err)
+        }
+    }
+    static async showCart(req, res) {
+        try {
+            // criando a barra de pesquisa
+
+            let search = ""
+
+            if (req.query.search) {
+                search = req.query.search
+            }
+            
+            let order = "DESC"
+
+            if (req.query.order === "old") {
+                order = "ASC"
+            } else {
+                order = "DESC"
+            }
+            
+            // recebendo os livros, que o usuario colocou no carrinho, do banco
+            const UserId = req.session.userid
+            const books = await CartController.buscarProdutos(UserId, search, order)
+
+            res.render("books/cart", { books: books[0], search })
+
+            
+
+        } catch (err) {
+            console.log("ocorreu um erro ao buscar os produtos: ", err)
+        }        
     }
 }
 

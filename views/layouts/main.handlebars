@@ -6,6 +6,7 @@
     <title>Bookstore</title>
     <link rel="stylesheet" href="/css/styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn-icons-png.flaticon.com/128/32/32354.png" class="favicon">
 </head>
 <body>
     <nav id="navbar">
@@ -15,7 +16,7 @@
                 {{#if session.admin}}
                     <li><a href="/books/userbooks">Add Livros</a></li>
                 {{else}}
-                    <li><a href="/books/userbooks">Meus Livros</a></li>    
+                    <li><a href="/books/cart">Carrinho</a></li>    
                 {{/if}}
                 <li><a href="/logout">Sair</a></li>
             {{else}}
@@ -31,9 +32,6 @@
             </div>
         {{/if}}
         {{{body}}}
-        <footer>
-            <h1>Bookstore&copy;</h1>
-        </footer>
     </div>
 </body>
 </html>

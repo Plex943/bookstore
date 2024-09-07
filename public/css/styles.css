@@ -76,7 +76,7 @@ a{
 
 .title-conteiner {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     flex-direction: row;
     margin-bottom: 1.5em;
 }
