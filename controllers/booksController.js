@@ -106,13 +106,33 @@ module.exports = class BooksController{
     }
 
     static async bookDetails(req, res) {
-        res.render("books/details")
+        const BookId = req.params.id
+        const book = await Books.findOne({raw: true, where: 
+            {
+                id: BookId
+            }
+        })
+
+        res.render("books/details", { book: book })
     }
 
     static async addtocart(req, res) {
         try{
+
             const BookId = req.params.id
             const UserId = req.session.userid
+
+            const user = await User.findOne({where: {
+                id:UserId,
+                plain: true
+            }})
+
+            if (!user) {
+                res.redirect("/login")
+                req.flash("message", "logue em uma conta primerio para comprar um livro!")
+                return
+            }
+
             CartController.addBooksCart(UserId, BookId)
             
             req.flash("Message", "produto adicionado ao carrinho com sucesso!")

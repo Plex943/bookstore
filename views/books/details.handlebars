@@ -1,34 +1,32 @@
 {{#with book}}
     <div class="add-form-conteiner">
-        <form action="/books/edit" method="post">            
-            <a href="/books/userbooks">Voltar</a>
-            <h1>Edite um Livro do Catalogo</h1>
-            <div class="form-control">
-                <label for="title">Livro:</label>
-                <input type="text" name="title" placeholder="Digite um Titulo" value="{{title}}">
-            </div>
-            <div class="form-control">
-                <label for="autor">Autor:</label>
-                <input type="text" name="autor" placeholder="Digite o nome do autor" value="{{autor}}">
-            </div>
-            <div class="form-control">
-                <label for="year">Ano:</label>
-                <input type="text" name="year" placeholder="Digite o ano de lançamento" value="{{year}}">
-            </div>
-            <div class="form-control">
-                <label for="img">URL:</label>
-                <input type="text" name="img" placeholder="Digite a url da imagem" value="{{img}}" id="imgurl">
-            </div>
-            <div class="form-control">
-                <label for="descripition">Descrição:</label>
-                <textarea name="descripition" placeholder="Digite a descrição do livro">{{descripition}}</textarea>
-            </div>
-        </form>
 
         <div class="image-preview">
             <label>Imagem:</label>
             <img src="{{img}}" alt="Aqui aparecerá a imagem" id="img">
         </div>
+        <form action="/books/edit">            
+            <a href="/books/cart">Carrinho</a>
+            <h1>Detalhes do Livro:</h1>
+            <div class="details-control">
+                <label for="title">Livro:</label>
+                <input type="text" name="title" placeholder="Digite um Titulo" value="{{title}}">
+            </div>
+            <div class="details-control">
+                <label for="autor">Autor:</label>
+                <input type="text" name="autor" placeholder="Digite o nome do autor" value="{{autor}}">
+            </div>
+            <div class="details-control">
+                <label for="year">Ano:</label>
+                <input type="text" name="year" placeholder="Digite o ano de lançamento" value="{{year}}">
+            </div>
+            <div class="details-control">
+                <label for="descripition">Descrição:</label>
+                <textarea name="descripition" placeholder="Digite a descrição do livro">{{descripition}}</textarea>
+            </div>
+        </form>
+
+        
     </div>
 
     <script>

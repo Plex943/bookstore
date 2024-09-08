@@ -36,9 +36,10 @@
                     <figcaption>por: {{this.autor}}</figcaption>
                 </label>
             </span>
-            <form action="/books/cart/{{this.id}}" method="post">
-                <input type="submit" class="btn" value="Add ao carrinho">
-            </form>
+            {{#if session.admin}}
+            {{else}}
+                <a href="/books/details/{{this.id}}" class="btn">Detalhes</a>
+            {{/if}}
         </figure>
     {{/each}}
 </div>

@@ -10,8 +10,8 @@ router.post("/add", CheckAuth, BooksController.addbookPost)
 router.get("/edit/:id", CheckAuth, BooksController.editbooks)
 router.post("/edit", CheckAuth, BooksController.editbooksPost)
 router.post("/remove", CheckAuth, BooksController.remove)
+router.get("/details/:id", CheckAuth, BooksController.bookDetails)
 router.post("/cart/:id", CheckAuth, BooksController.addtocart)
 router.get("/cart", CheckAuth, BooksController.showCart)
-router.get("/details", CheckAuth, BooksController.bookDetails)
 
 module.exports = router
