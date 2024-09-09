@@ -2,7 +2,7 @@ const Cart = require("../models/Cart")
 const Cartitem = require("../models/Cartitem")
 const Books = require("../models/books")
 const User = require("../models/User")
-const { Op } = require("sequelize")
+const { Op, where } = require("sequelize")
 
 Books.hasMany(Cartitem)
 User.hasMany(Cart)
@@ -15,7 +15,6 @@ Cart.belongsTo(User)
 module.exports = class cartController{
 
     async buscarProdutos(UserId, search, order) {
-
         try{
             const user = await User.findByPk(UserId, {
                 include: {
@@ -39,9 +38,7 @@ module.exports = class cartController{
             if (!user.Carts || user.Carts.length === 0) {
                 return { message: "Nenhum carrinho encontrado para este usuário" };
             }*/
-
             return user.Carts.map(Cart => {
-
                 return Cart.Cartitems.map(item => ({
                     id: item.Book.id,
                     title: item.Book.title,
@@ -89,7 +86,6 @@ module.exports = class cartController{
 
             if (cartitem) {
 
-                
             } else {
                 await Cartitem.create({
                     CartId: cart.id,
@@ -103,5 +99,53 @@ module.exports = class cartController{
             console.log("Erro ao adicionar o produto: ", err)
             throw err
         }
+    }
+
+    async buscarProduto(UserId, BookId) {
+        try {
+            const user = await User.findByPk(UserId, {
+                include: {
+                    model: Cart,
+                    include: {
+                        model: Cartitem,
+                        include: {
+                            model: Books,
+                            attributes: ["id", "title", "autor", "year", "img", "descripition"],
+                            where: {id: BookId}
+                        }
+                    }
+                }
+            })
+
+            return user.Carts.map(Cart => {
+                return Cart.Cartitems.map(item => ({
+                    id: item.Book.id,
+                    title: item.Book.title,
+                    autor: item.Book.autor,
+                    year: item.Book.year,
+                    img: item.Book.img,
+                    descripition: item.Book.descripition
+                }))
+            })
+        } catch(err) {
+            console.log("err ao buscar o Produto: ", err)
+        }
+    }
+
+    async removeCart(UserId, BookId) {
+        const user = await User.findByPk(UserId, {
+            include: {
+                model: Cart,
+            }
+        })
+        const CartData = user.Carts.map((results) => results.dataValues)
+        const CartId = CartData[0].id
+
+        Cartitem.destroy({where: {
+            BookId: BookId,
+            CartId: CartId
+        }})
+
+        return 
     }
 }

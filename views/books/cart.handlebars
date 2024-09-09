@@ -29,16 +29,16 @@
             <h2>Seu carrinho</h2>
     </div>
     <ul>
-        {{#if empityBooks}}
-            <p>você ainda não tem Livros <a href="/">add Aqui</a></p>
-        {{else}}
+        {{#if books}}
             {{#each books}}
                 <li>
                     <img src="{{this.img}}" alt="imagen de {{this.title}}" class="book-img">
                     <span class="label">{{this.title}}</span>
-                    <a href="/books/details" class="btn">Detalhes</a>
+                    <a href="/books/details/{{this.id}}" class="btn">Detalhes</a>
                 </li>
             {{/each}}
+        {{else}}
+            <p>você ainda não tem Livros <a href="/" id="a">add Aqui</a></p>
         {{/if}}
     </ul>
 </div>

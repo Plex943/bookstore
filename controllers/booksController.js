@@ -106,6 +106,7 @@ module.exports = class BooksController{
     }
 
     static async bookDetails(req, res) {
+        const UserId = req.session.userid
         const BookId = req.params.id
         const book = await Books.findOne({raw: true, where: 
             {
@@ -113,7 +114,9 @@ module.exports = class BooksController{
             }
         })
 
-        res.render("books/details", { book: book })
+        const empityBooks = await CartController.buscarProduto(UserId, BookId)
+
+        res.render("books/details", { book: book , empityBooks: empityBooks[0]})
     }
 
     static async addtocart(req, res) {
@@ -122,10 +125,10 @@ module.exports = class BooksController{
             const BookId = req.params.id
             const UserId = req.session.userid
 
-            const user = await User.findOne({where: {
-                id:UserId,
+            const user = await User.findOne({where: 
+                {id:UserId},
                 plain: true
-            }})
+            })
 
             if (!user) {
                 res.redirect("/login")
@@ -133,9 +136,9 @@ module.exports = class BooksController{
                 return
             }
 
-            CartController.addBooksCart(UserId, BookId)
+            await CartController.addBooksCart(UserId, BookId)
             
-            req.flash("Message", "produto adicionado ao carrinho com sucesso!")
+            req.flash("message", "Livro adicionado ao carrinho com sucesso!")
             req.session.save(() => {
                 res.redirect("/")
             })
@@ -143,6 +146,7 @@ module.exports = class BooksController{
             console.log("ocorreu um erro ao adicionar no carrinho: ", err)
         }
     }
+
     static async showCart(req, res) {
         try {
             // criando a barra de pesquisa
@@ -165,13 +169,23 @@ module.exports = class BooksController{
             const UserId = req.session.userid
             const books = await CartController.buscarProdutos(UserId, search, order)
 
-            res.render("books/cart", { books: books[0], search })
-
-            
+            res.render("books/cart", { books: books[0], search})
 
         } catch (err) {
             console.log("ocorreu um erro ao buscar os produtos: ", err)
         }        
+    }
+
+    static async removeBookCart(req, res) {
+        
+        const UserId = req.session.userid
+        const BookId = req.params.id
+        CartController.removeCart(UserId, BookId)
+
+        req.flash("message", "Livro removido do carrinho com sucesso")
+        req.session.save(() => {
+            res.redirect("/books/cart")
+        })
     }
 }
 
