@@ -4,8 +4,7 @@
   "description": "Uma aplicação que tenta imitar uma livraria de e-commerce",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js 3000 localhost"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
