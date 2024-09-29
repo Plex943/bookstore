@@ -81,6 +81,7 @@ module.exports = class authController {
             console.log("erro ao logar o usuario: ", err)
         }
     }
+    
     static async logout(req, res) {
         req.session.destroy()
         res.redirect("/books")
