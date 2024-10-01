@@ -6,11 +6,6 @@ const helpers = new Helpers
 const userService = new UserServices
 module.exports = class UserController{
 
-    static async home(req, res) {
-        res.status(200).json({message: "Você está na home parabens!"})
-        return
-    }
-
     static async register(req, res) {
         const {name, email,  password, confirmPassword, accounType} = req.body
         let admin = false

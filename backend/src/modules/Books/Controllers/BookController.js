@@ -2,6 +2,18 @@ const BookService = require("../Services/BookServices")
 
 const booksService = new BookService
 module.exports = class BookController{
+
+    static async showAllBooks(req, res) {
+        const books = await booksService.getAllBooks()
+        if (!books) {
+            res.status(404).json({message: "Não há nenhum livro!"})
+            return
+        }
+
+
+        res.status(200).json({message: "Operação bem sucedida!", books: books})
+    }
+
     static async addBook(req, res) {
         const {title, autor, year, img, descripition} = req.body
         if (!title) {
@@ -58,15 +70,44 @@ module.exports = class BookController{
         }
         const book = await booksService.BookEdit({title, autor, year, img, descripition}, id)
         if(!book) {
-            res.status(500).json({message: "O livro solicitado não existe ou não foi encontrado!"})
+            res.status(404).json({message: "O livro solicitado não existe ou não foi encontrado!"})
             return
         }
 
         res.status(200).json({message: "Livro editado com sucesso"})
     }
     
-    async getBook(req, res) {
+    static async getBook(req, res) {
         const id = req.params.id
-        // continuar o codigo a partir daqui
+        const book = await booksService.GetBook(id)
+        if(!book) {
+            res.status(404).json({message: "Livro não encontrado ou não existe!", id})
+        } else {
+            res.status(200).json({message: "Operação bem sucedida!", book})
+        }
+    }
+
+    static async removeBook(req, res) {
+        const id = req.params.id
+        const bookDestroy = await booksService.remove(id)
+        if (!bookDestroy) {
+            res.status(404).json({message: "livro não encontrado ou não existe!"})
+            return
+        } else {
+            res.status(200).json({message: "Livro removido com sucesso!"})
+            return
+        }
+    }
+
+    static async adminBooks(req, res) {
+        const books = await booksService.getAdminBooks(req, res)
+
+        if (books) {
+            res.status(200).json({message: "Livros do adm: ", books})
+            return
+        } else {
+            res.status(404).json({message: "Livro não encontrado!"})
+            return
+        }
     }
 }

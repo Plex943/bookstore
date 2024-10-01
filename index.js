@@ -6,8 +6,8 @@ const FileStore = require("session-file-store")(session)
 const flash = require("express-flash")
 const conn = require("./db/conn")
 const BooksRoutes = require("./routes/booksRoutes")
-const BooksController = require("./controllers/booksController")
 const authRoutes = require("./routes/authRoutes")
+const BooksController = require("./controllers/booksController")
 
 app.use(express.urlencoded({
     extended: true
@@ -50,6 +50,7 @@ app.use(flash())
 
 app.use("/", authRoutes)
 app.use("/books", BooksRoutes)
+app.use("cart", )
 app.use("/", BooksController.showBooks)
 
 conn

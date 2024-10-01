@@ -12,27 +12,7 @@ class Helpers {
         return res.status(201).json({message: "Usuario criado!", token: token, userId: user.id})
     }
 
-    verifytoken = async (req, res, next) => {
-        if (!req.headers.authorization) {
-            res.status(401).json({message: "token inexistente no header!"})
-            return
-        }
-        
-        try{
-            const token = await this.getUserToken(req)
-            if (!token) {
-                res.status(401).json({message: "token inexistente!"})
-                return
-            }
-
-            const verified = jwt.verify(token, "secret")
-            req.user = verified
-            next()
-        } catch(err) {
-            res.status(400).json({message: `token invalido!`, err})
-        }
-    }
-
+    
     async getUserToken(req) {
         const authToken = req.headers.authorization
 
@@ -48,7 +28,7 @@ class Helpers {
         if (!token) {
             return res.status(401).json({message: "token inexistente"})
         }
-
+        
         const decoded = jwt.verify(token, "secret")
         const userid = decoded.id
         const user = await User.findOne({where: {id: userid}})
@@ -60,22 +40,55 @@ class Helpers {
             return
         }
 
-        const token = await this.getUserToken(req)
-        if (!token) {
-            res.status(401).json({message: "token inexistente"})
-            return
-        }
+        try {
+            const token = await this.getUserToken(req)
+            if (!token) {
+                res.status(401).json({message: "token inexistente"})
+                return
+            }
 
-        const user = await this.getUserByToken(token, res)
-        console.log(user)
-        if (!user.admin) {
-            res.status(401).json({message: "Você deve ser Administrador para ter acesso à essa função!"})
-            return
+            const user = await this.getUserByToken(token , res)
+            if(!user) {
+                res.status(404).json({message: "usuario não encontrado ou não existe!"})
+                return
+            }
+
+            if (!user.admin) {
+                res.status(403).josn({message: "vocÊ não tem acesso a este recurso!"})
+                return
+            }
+
+            const verified = jwt.verify(token, "secret")
+            req.user = verified
+            next()
+        } catch(err) {
+            res.status(400).json({message: "ocorreu um erro:", err})
         }
-        const verified = jwt.verify(token, "secret")
-        req.user = verified
-        next()
-    }     
+        
+    }
+    
+    verifytoken = async (req, res, next) => {
+        if (!req.headers.authorization) {
+        res.status(401).json({message: "token inexistente no header!"})
+        return
+        }
+        
+        try{
+            const token = await this.getUserToken(req)
+            if (!token) {
+                res.status(401).json({message: "token inexistente!"})
+                return
+            }
+                
+            const verified = jwt.verify(token, "secret")
+            req.user = verified
+            next()
+        } catch(err) {
+                    res.status(400).json({message: `token invalido!`, err})       
+                }
+    }
 }
 
 module.exports = Helpers
+
+
