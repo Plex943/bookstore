@@ -4,6 +4,7 @@ const CartController = require("../Controllers/CartController")
 const Helpers = require("../../../utils/helpers")
 
 const helpers = new Helpers
-router.get("/:BookId", helpers.verifytoken, CartController.AddCart)
+router.post("/:bookid", helpers.verifytoken, CartController.AddCart)
+router.get("/", helpers.verifytoken, CartController.ShowCart)
 
 module.exports = router

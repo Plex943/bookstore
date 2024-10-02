@@ -50,7 +50,6 @@ app.use(flash())
 
 app.use("/", authRoutes)
 app.use("/books", BooksRoutes)
-app.use("cart", )
 app.use("/", BooksController.showBooks)
 
 conn

@@ -38,6 +38,11 @@ module.exports = class cartController{
             if (!user.Carts || user.Carts.length === 0) {
                 return { message: "Nenhum carrinho encontrado para este usuário" };
             }*/
+           user.Carts.map(Cart => {
+            Cart.Cartitems.map((item) => {
+                console.log(item.Book)
+            })
+           })
             return user.Carts.map(Cart => {
                 return Cart.Cartitems.map(item => ({
                     id: item.Book.id,
