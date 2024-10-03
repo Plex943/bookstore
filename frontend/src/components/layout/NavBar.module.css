@@ -1,0 +1,29 @@
+.navbar {
+    background-color: #9a9aff;
+    padding: 1.2em 1.6em;
+    margin-bottom: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px #1d1d1d solid;
+}
+
+.navbar ul {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 18px;
+    letter-spacing: 1px;
+    list-style: none;
+}
+
+.navbar ul li a{
+    color: #000000;
+    margin-right: 16px;
+    text-decoration: none;
+    transition: 0.4s;
+}

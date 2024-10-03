@@ -40,9 +40,9 @@ module.exports = class UserController{
             res.status(422).json({message: "As senhas não conferem!"})
             return
         }
+
         const userData = {name, email, password, confirmPassword, admin}
         const userAlreadyexists = await userService.UserExists(userData)
-        console.log(userAlreadyexists)
         if (userAlreadyexists) {
             res.status(422).json({message: "O usuario já existe!"})
             return
@@ -50,7 +50,6 @@ module.exports = class UserController{
 
         try {
             const user = await userService.CreateUser(userData, req, res)
-            console.log(user)
             await helpers.createtoken(user, req, res)
         } catch (err) {
             res.status(500).json({message: "Erro com o servidor!", err})

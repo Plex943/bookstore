@@ -1,0 +1,26 @@
+.form_conteiner {
+    max-width: 450px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif;
+}
+
+
+.form_conteiner input[type="submit"] {
+    color: #000000;
+    background-color: #9a9aff;
+    border:  none;
+    padding: 0.5em;
+    border-radius: 4px;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    margin: 5px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.form_conteiner input[type="submit"]:hover {
+    background-color: #adadff;
+}
