@@ -27,7 +27,27 @@ module.exports = class CartController {
 
     static async ShowCart(req, res) {
         const booksOnCart = await cartservices.ShowBooksOnCart(req, res)
-        console.log(booksOnCart, "74665656565656565")
-        res.status(200).json({message: "Livros do carrinho: ", Books: booksOnCart[0]})
+        if (booksOnCart === "notBooks") {
+            res.status(422).json({message: "Livro não encontrado, talvez o id esteja errado"})
+            return
+        }
+        
+        res.status(200).json({message: "Livros do carrinho: ", Books: booksOnCart})
+    }
+
+    static async removeCartItem(req, res) {
+        const BookId = req.params.bookid
+        console.log(BookId)
+        const BookRemoved = await cartservices.removeCartItem(BookId, req, res)
+        if (BookRemoved === "notUser") {
+            res.status(422).json({message: "Usuario invalido!"})
+            return
+        }
+        if(BookRemoved === "notBook") {
+            res.status(422).json({message: "Livro não existe ou invalido!"})
+            return
+        }
+
+        res.status(200).json({message: "Livro removido do carrinho!"})
     }
 }

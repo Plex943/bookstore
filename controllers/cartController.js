@@ -38,11 +38,7 @@ module.exports = class cartController{
             if (!user.Carts || user.Carts.length === 0) {
                 return { message: "Nenhum carrinho encontrado para este usuário" };
             }*/
-           user.Carts.map(Cart => {
-            Cart.Cartitems.map((item) => {
-                console.log(item.Book)
-            })
-           })
+           
             return user.Carts.map(Cart => {
                 return Cart.Cartitems.map(item => ({
                     id: item.Book.id,
@@ -52,8 +48,9 @@ module.exports = class cartController{
                     img: item.Book.img,
                     descripition: item.Book.descripition
                 }))
+            })
 
-                /*return Cart.Cartitems.map(item => ({
+            /*return Cart.Cartitems.map(item => ({
                     id: item.Books.id,
                     title: item.Books.title,
                     autor: item.Books.autor,
@@ -61,7 +58,7 @@ module.exports = class cartController{
                     img: item.Books.img,
                     descripition: item.Books.descripition
                 }))*/
-            })
+
         } catch(err) {
             console.log("Erro na conexão com o carrinho: ", err)
         }

@@ -180,7 +180,7 @@ module.exports = class BooksController{
         
         const UserId = req.session.userid
         const BookId = req.params.id
-        CartController.removeCart(UserId, BookId)
+        await CartController.removeCart(UserId, BookId)
 
         req.flash("message", "Livro removido do carrinho com sucesso")
         req.session.save(() => {
