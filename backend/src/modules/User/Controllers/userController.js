@@ -58,12 +58,13 @@ module.exports = class UserController{
 
     static async login(req, res) {
         const {email, password} = req.body
-
+        
         if(!email) {
             res.status(422).json({message: "O email é obrigatorio!"})
             return
         }
         if (!password) {
+            console.log(password, email)
             res.status(422).json({message: "A senha é obrigatoria!"})
             return
         }
@@ -74,6 +75,9 @@ module.exports = class UserController{
         }
 
         const user = await userService.GetUser({email, password})
+        if (!user) {
+            res.status(401).json({message: "Usuario não enconttrado"})
+        }
         const passwordCorrect = brcypt.compareSync(password, user.password)
         if (!passwordCorrect) {
             res.status(422).json({message: "A senha está incorreta!"})

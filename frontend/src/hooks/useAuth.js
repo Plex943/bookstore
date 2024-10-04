@@ -6,22 +6,29 @@ import useFlashMessage from "./useFlashMessage";
 
 export default function useAuth() {
     const [authenticated, setAuthenticated] = useState(false)
+    const [admin, setAdmin] = useState()
     const {setFlashMessage} = useFlashMessage()
     const navigate = useNavigate()
 
     useEffect(() => {
         const token = localStorage.getItem("token")
+        const isAdmin = localStorage.getItem("admin")
 
         if (token) {
             api.defaults.headers.Authorization = `Bearer ${JSON.parse(token)}`
             setAuthenticated(true)
+            if (isAdmin) {
+                setAdmin(JSON.parse(isAdmin))
+            }
         }
     }, [])
 
-    function authUser(token) {
+    function authUser(token, isAdmin) {
         setAuthenticated(true)
-        
+        setAdmin(isAdmin)
+
         localStorage.setItem("token", JSON.stringify(token))
+        localStorage.setItem("admin", JSON.stringify(isAdmin))
 
         navigate("/")
     }
@@ -33,27 +40,29 @@ export default function useAuth() {
         try {
             const response = await api.post("/user/register", user)
             const data = response.data
-        
-            authUser(data.token)
+
+            authUser(data.token, data.admin)
         } catch (err) {
-            msgTxt = err.response.message
+            msgTxt = err.response?.data?.message
+            console.log(err)
             msgType = "error"
         }
         setFlashMessage(msgTxt, msgType)
     }
-
+    
     async function login({email, password}) {
         let msgTxt = "Login realizado com sucesso"
         let msgType = "success"
         const userData = {email, password}
-
+        
         try {
             const response = await api.post("/user/login", userData)
             const data = response.data
-
-            authUser(data.token)
+            
+            authUser(data.token, data.admin)
         } catch (err) {
-            msgTxt = err.response.message
+            msgTxt = err.response.data.message
+            console.log(err.response.data.message)
             msgType = "error"
         }
         setFlashMessage(msgTxt, msgType)
@@ -65,11 +74,12 @@ export default function useAuth() {
         const msgType = "success"
 
         localStorage.removeItem("token")
+        localStorage.removeItem("admin")
         setAuthenticated(false)
         api.defaults.headers.Authorization = undefined
         navigate("/")
 
         setFlashMessage(msgTxt, msgType)
     }
-    return({ authenticated, register, login, logout})
+    return({ authenticated, admin, register, login, logout})
 }

@@ -2,12 +2,13 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
 
 
-import Home from "./components/Home"
-import NavBar from './components/layout/NavBar';
 import Conteiner from './components/layout/Conteiner';
-import Register from './components/pages/Auth/Register';
+import NavBar from './components/layout/NavBar';
 import Message from './components/layout/Message';
+import Register from './components/pages/Auth/Register';
 import Login from './components/pages/Auth/Login';
+import Home from "./components/Home"
+import AdminBooks from './components/pages/Books/AdminBooks';
 
 import { UserProvider } from './context/UserContext';
 
@@ -22,6 +23,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/user/register" element={<Register />} />
             <Route path="/user/login" element={<Login />} />
+            <Route path="/books/adminBooks" element={<AdminBooks />} />
           </Routes>
         </Conteiner>
       </UserProvider>

@@ -9,7 +9,7 @@ class Helpers {
             id: user.id
         }, "secret")
 
-        return res.status(201).json({message: "Usuario criado!", token: token, userId: user.id})
+        return res.status(201).json({message: "Usuario criado!", token: token, userId: user.id, admin: user.admin})
     }
 
     

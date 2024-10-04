@@ -49,10 +49,9 @@ module.exports = class BookService {
             return true
         }
     }
-
+    
     async getAdminBooks(req, res) {
         const token = await helpers.getUserToken(req)
-        console.log(token)
         const user = await helpers.getUserByToken(token, res)
 
         const books = await Books.findAll({where: {admin : user.id}})
