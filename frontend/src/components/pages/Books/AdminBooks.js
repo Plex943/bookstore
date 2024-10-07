@@ -2,10 +2,14 @@ import { useState, useEffect } from "react"
 import styles from "./AdminBooks.module.css"
 import api from "../../../utils/api"
 import { Link } from "react-router-dom"
+import useFlashMessage from "../../../hooks/useFlashMessage"
+import { useNavigate } from "react-router-dom"
 
 function AdminBooks() {
     const [token] = useState(localStorage.getItem("token") || "")
     const [books, SetBooks] = useState([])
+    const { setFlashMessage } = useFlashMessage()
+    const navigate = useNavigate()
 
     useEffect(() => {
         const BookData = () => {
@@ -19,6 +23,24 @@ function AdminBooks() {
         }
         BookData()
     }, [token])
+
+    async function remove(id) {
+        console.log("executou a função")
+        let msgType = "success"
+        try {
+            const response = await api.delete(`/books/remove/${id}`, {
+                headers: {
+                    Authorization: `Bearer ${JSON.parse(token)}`
+                }
+            })
+            setFlashMessage(response.data?.message, msgType)
+        } catch(err) {
+            msgType = "error"
+            setFlashMessage(err.response?.data?.message, msgType)
+        }
+
+        navigate("/")
+    }
 
     return(
         <section className={styles.Userbooks}>
@@ -34,7 +56,13 @@ function AdminBooks() {
                                 <li key={Book.title}>
                                     <img src={Book.img} alt={Book.title} />
                                     <span>{Book.title}</span>
-                                    <Link to={"/books/edit"} className={styles.btn}>Editar</Link>
+                                    <Link to={`/books/edit/${Book.id}`} className={styles.btn}>Editar</Link>
+                                    <form onSubmit={(e) => {
+                                        e.preventDefault()
+                                        remove(Book.id)
+                                    }} className={styles.remove_form}>
+                                        <input type="submit" value="Excluir"/>
+                                    </form>
                                 </li>
                             )
                         })}

@@ -74,7 +74,7 @@ module.exports = class BookController{
             return
         }
 
-        res.status(200).json({message: "Livro editado com sucesso"})
+        res.status(200).json({message: "Livro editado com sucesso", book: book})
     }
     
     static async getBook(req, res) {
@@ -90,11 +90,11 @@ module.exports = class BookController{
     static async removeBook(req, res) {
         const id = req.params.id
         const bookDestroy = await booksService.remove(id)
-        if (!bookDestroy) {
-            res.status(404).json({message: "livro não encontrado ou não existe!"})
+        if (bookDestroy) {
+            res.status(200).json({message: "Livro removido com sucesso!"})
             return
         } else {
-            res.status(200).json({message: "Livro removido com sucesso!"})
+            res.json({message: "livro não encontrado ou não existe!"})
             return
         }
     }

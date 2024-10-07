@@ -44,6 +44,7 @@ module.exports = class BookService {
         const book = await Books.findOne({where: {id:id}})
         if (!book) {
             return false
+    
         } else {
             await Books.destroy({where: {id:id}})
             return true
