@@ -19,5 +19,4 @@ module.exports = class UserServices {
         const user = await User.findOne({where: {email: data.email}})
         return user
     }
-
 }

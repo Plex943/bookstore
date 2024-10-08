@@ -1,4 +1,3 @@
-const { bookDetails } = require("../../../../../controllers/booksController")
 const Books = require("../../../models/Books")
 const Helpers = require("../../../utils/helpers")
 
@@ -13,7 +12,6 @@ module.exports = class BookService {
         }
         return books
     }
-
     async CreateBook(data, req, res) {
         const {title, autor, year, img, descripition} = data
         const token = await helpers.getUserToken(req)

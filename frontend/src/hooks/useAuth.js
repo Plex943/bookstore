@@ -70,16 +70,23 @@ export default function useAuth() {
     }
 
     async function logout() {
-        const msgTxt = "Logout realizado com sucesso"
-        const msgType = "success"
+        try {
+            const msgTxt = "Logout realizado com sucesso"
+            const msgType = "success"
+            
+            localStorage.removeItem("token")
+            localStorage.removeItem("admin")
+            setAuthenticated(false)
+            api.defaults.headers.Authorization = undefined
+            setTimeout(() => {
+                navigate("/")
+            }, 100)
+            
+            setFlashMessage(msgTxt, msgType)
 
-        localStorage.removeItem("token")
-        localStorage.removeItem("admin")
-        setAuthenticated(false)
-        api.defaults.headers.Authorization = undefined
-        navigate("/")
-
-        setFlashMessage(msgTxt, msgType)
+        } catch(err) {
+            console.log(err)
+        }
     }
     return({ authenticated, admin, register, login, logout})
 }

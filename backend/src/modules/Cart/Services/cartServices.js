@@ -23,6 +23,8 @@ module.exports = class CartServices {
         try {
             const token = await helpers.getUserToken(req)
             const user = await helpers.getUserByToken(token, res)
+            console.log(token)
+            console.log(user)
             if (!user) {
                 return "notUser"
             }
@@ -58,7 +60,7 @@ module.exports = class CartServices {
     async ShowBooksOnCart(req, res) {
         const token = await helpers.getUserToken(req)
         const userData = await helpers.getUserByToken(token, res)
-        const BookId = Number(req.params.bookid)
+        //const BookId = Number(req.params.bookid)
 
         try {
             const user = await User.findByPk(userData.id, {
@@ -74,7 +76,18 @@ module.exports = class CartServices {
                 }
             })
 
-            if(BookId) {
+            return user.Carts.map(Cart => {
+                return Cart.Cartitems.map(item => ({
+                    id: item.Book.id,
+                    title: item.Book.title,
+                    autor: item.Book.autor,
+                    year: item.Book.year,
+                    img: item.Book.img,
+                    descripition: item.Book.descripition
+                }))
+            })[0]
+
+            /*if(BookId) {
                 const booksOnCart = user.Carts.map(Cart => {
                     return Cart.Cartitems.map(item => ({
                         id: item.Book.id,
@@ -94,19 +107,7 @@ module.exports = class CartServices {
                 } else {
                     return "notBooks"
                 }
-            }
-
-            return user.Carts.map(Cart => {
-                return Cart.Cartitems.map(item => ({
-                    id: item.Book.id,
-                    title: item.Book.title,
-                    autor: item.Book.autor,
-                    year: item.Book.year,
-                    img: item.Book.img,
-                    descripition: item.Book.descripition
-                }))
-            })[0]
-
+            }*/
         } catch (err) {
             console.log(err)
         }

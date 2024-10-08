@@ -25,7 +25,6 @@ function AdminBooks() {
     }, [token])
 
     async function remove(id) {
-        console.log("executou a função")
         let msgType = "success"
         try {
             const response = await api.delete(`/books/remove/${id}`, {

@@ -86,4 +86,16 @@ module.exports = class UserController{
 
         await helpers.createtoken(user, req, res)
     }
+
+    static async GetUser(req, res) {
+        const token = await helpers.getUserToken(req)
+        const user = await helpers.getUserByToken(token, res)
+
+        if (user) {
+            res.status(200).json({user})
+            return
+        } else {
+            res.status(404).json({message: "Usuario não encontrado"})
+        }
+    }
 }

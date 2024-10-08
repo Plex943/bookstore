@@ -4,7 +4,6 @@ const cartservices = new CartServices
 module.exports = class CartController {
     static async AddCart(req, res) {
         const BookId = req.params.bookid
-
         const BookAdd = await cartservices.AddToCArt(BookId, req, res)
         if (BookAdd === "notUser") {
             res.status(401).json({message: "usuario invalido ou inesxistente!"})
@@ -17,6 +16,8 @@ module.exports = class CartController {
         }
         if (BookAdd === "itemAlready") {
             //função para aumentra a quantidade de livros no carrinho
+            res.status(422).json({message: "o itm já está no carrinho"})
+            return
         }
 
         if (BookAdd === "sucessful") {
@@ -28,7 +29,7 @@ module.exports = class CartController {
     static async ShowCart(req, res) {
         const booksOnCart = await cartservices.ShowBooksOnCart(req, res)
         if (booksOnCart === "notBooks") {
-            res.status(422).json({message: "Livro não encontrado, talvez o id esteja errado"})
+            res.status(422).json({message: "Você não tem nenhum Livro no carrinho"})
             return
         }
         
@@ -37,7 +38,6 @@ module.exports = class CartController {
 
     static async removeCartItem(req, res) {
         const BookId = req.params.bookid
-        console.log(BookId)
         const BookRemoved = await cartservices.removeCartItem(BookId, req, res)
         if (BookRemoved === "notUser") {
             res.status(422).json({message: "Usuario invalido!"})

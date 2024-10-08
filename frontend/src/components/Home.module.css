@@ -1,0 +1,49 @@
+.book_conteiner span {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+}
+
+.book_conteiner figure {
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    border-bottom: 1px #9d8888 solid;
+    padding: 0.5em;
+    max-width: 50%;
+    margin: 0 auto 1em;
+}
+
+.book_conteiner img {
+    width: 6rem;
+    height: auto;
+    border: 3px solid #505050;
+    padding: 12px;
+    background-color: #505050;
+    border-radius: 5px;
+}
+
+.book_conteiner label {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    flex-direction: column;
+
+    margin-left: 1em;
+}
+
+.book_conteiner blockquote {
+    font-family: sans-serif;
+    letter-spacing: 0.5px;
+    font-size: 1.5em;
+    margin-bottom: 0.4em;
+}
+
+.book_conteiner figcaption {
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 14px;
+}

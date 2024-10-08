@@ -11,6 +11,8 @@ import Home from "./components/Home"
 import AdminBooks from './components/pages/Books/AdminBooks';
 import AddBooks from './components/pages/Books/AddBooks';
 import EditBook from './components/pages/Books/EditBook';
+import BookDetails from './components/pages/Books/BookDetails';
+import Cart from './components/pages/Cart/Cart';
 
 import { UserProvider } from './context/UserContext';
 
@@ -28,6 +30,8 @@ function App() {
             <Route path="/books/adminBooks" element={<AdminBooks />} />
             <Route path="/books/add" element={<AddBooks />} />
             <Route path="/books/edit/:id" element={<EditBook />} />
+            <Route path="/books/details/:id" element={<BookDetails />} />
+            <Route path="/cart" element={<Cart />} />
           </Routes>
         </Conteiner>
       </UserProvider>
