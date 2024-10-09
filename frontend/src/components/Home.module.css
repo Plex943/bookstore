@@ -47,3 +47,39 @@
     font-weight: bold;
     font-size: 14px;
 }
+
+.search_conteiner {
+    display: flex;
+    flex-direction: column;
+    max-width: 60%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.search_conteiner h1 {
+    margin-bottom: 1em;
+}
+
+.search_conteiner form {
+    margin-bottom: 1.2em;
+}
+
+.search_conteiner input{
+    border: none;
+    border-bottom: 1px solid #505050;
+    padding: 0.5em;
+    margin-right: 1em;
+}
+
+.search_conteiner input[type="text"] {
+    width: 60%;
+}
+
+.select_order {
+    padding: 6px;
+    font-size: 13px;
+    font-family: sans-serif;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    border-radius: 5px;
+}

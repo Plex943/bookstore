@@ -6,7 +6,8 @@
     margin-bottom: 1em;
 }
 
-.details_control label{
+.details_control label,
+.details_control textarea{
     border: none;
     border-bottom: 1px solid #505050;
     padding: 0.5em;
@@ -27,6 +28,14 @@
     margin: 0 auto;
 }
 
+.add_form_conteiner form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    max-width: 40%;
+    text-align: center;
+}
+
 .img_preview {
     display: flex;
     flex-direction: column;
@@ -42,4 +51,10 @@
     border: 2px solid #505050;
     background-color: #505050;
     border-radius: 8px;
+}
+
+.details_control span{
+    font-family: sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
 }

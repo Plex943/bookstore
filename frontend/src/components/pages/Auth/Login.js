@@ -19,7 +19,7 @@ function Login() {
 
     return <section className={styles.form_conteiner}>
         <h1>
-            Logar:
+            Entrar:
         </h1>
         <form onSubmit={onSubmit}>
             <Input

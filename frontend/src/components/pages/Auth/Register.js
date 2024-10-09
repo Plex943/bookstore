@@ -19,7 +19,7 @@ function Register() {
     return(
         <section className={styles.form_conteiner}>
             <h1>
-                Resgistre sua conta
+                Resgistre sua conta:
             </h1>
             <form onSubmit={onSubmit}>
                 <Input
@@ -53,7 +53,7 @@ function Register() {
 
                 <input value="Registrar" type="submit" />
             </form>
-            <p>Játem uma conta? <Link to={"/user/login"}>Clique aqui</Link></p>
+            <p>Já tem uma conta? <Link to={"/user/login"}>Clique aqui</Link></p>
         </section>
     )
 }

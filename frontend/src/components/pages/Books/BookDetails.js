@@ -114,30 +114,30 @@ function BookDetails() {
                 e.preventDefault()
                 addToCart(id)
             }} >
-                <h1>Detalhes do Lirvo: {book.title}</h1>
+                <h1>Detalhes do Livro: {book.title}</h1>
                 <div className={styles.details_control}>
-                    <label>
+                    <span>
                         Livro:
-                    </label>
+                    </span>
                     <label>{book.title}</label>
                 </div>
                 <div className={styles.details_control}>
-                    <label>
+                    <span>
                         Autor:
-                    </label>
+                    </span>
                     <label>{book.autor}</label>
                 </div>
                 <div className={styles.details_control}>
-                    <label>
+                    <span>
                         Ano:
-                    </label>
+                    </span>
                     <label>{book.year}</label>
                 </div>
                 <div className={styles.details_control}>
-                    <label>
+                    <span>
                         Descrição:
-                    </label>
-                    <label>{book.descripition}</label>
+                    </span>
+                    <textarea value={book.descripition}></textarea>
                 </div>
                 {user && !user.admin && <input type="submit" value="Add ao Carrinho" className="btn" />}
                 </form>}

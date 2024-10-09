@@ -4,12 +4,24 @@ const booksService = new BookService
 module.exports = class BookController{
 
     static async showAllBooks(req, res) {
-        const books = await booksService.getAllBooks()
+        let search = ""
+        let order = "DESC"
+
+        if (req.query.search) {
+            search = req.query.search
+        }
+
+        if (req.query.order === "old") {
+            order = "ASC"
+        } else {
+            order = "DESC"
+        }
+
+        const books = await booksService.getAllBooks(search, order)
         if (!books) {
             res.status(404).json({message: "Não há nenhum livro!"})
             return
         }
-
 
         res.status(200).json({message: "Operação bem sucedida!", books: books})
     }

@@ -1,11 +1,12 @@
 const Books = require("../../../models/Books")
 const Helpers = require("../../../utils/helpers")
+const {Op, Model} = require("sequelize")
 
 const helpers = new Helpers
 module.exports = class BookService {
 
-    async getAllBooks() {
-        const BooksData = await Books.findAll({})
+    async getAllBooks(search, order) {
+        const BooksData = await Books.findAll({where: {title: {[Op.like]: `%${search}%`}}, order: [["CreatedAt", order]] })
         const books = BooksData.map((results) => results.get({plain: true}))
         if (!books) {
             return false
