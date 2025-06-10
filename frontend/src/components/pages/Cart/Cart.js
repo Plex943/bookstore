@@ -13,7 +13,9 @@ function Cart() {
                 Authorization: `Bearer ${JSON.parse(token)}`
             }
         }).then((response) => {
-            setBooks(response.data?.Books)
+            if (response.data.book) {
+                setBooks(response.data?.Books)
+            }
         })
     }, [token])
 

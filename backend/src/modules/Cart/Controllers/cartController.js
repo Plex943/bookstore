@@ -1,6 +1,7 @@
 const CartServices = require("../Services/cartServices")
 
 const cartservices = new CartServices
+
 module.exports = class CartController {
     static async AddCart(req, res) {
         const BookId = req.params.bookid

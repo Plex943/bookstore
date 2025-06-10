@@ -1,6 +1,6 @@
 const Books = require("../../../models/Books")
 const Helpers = require("../../../utils/helpers")
-const {Op, Model} = require("sequelize")
+const { Op } = require("sequelize")
 
 const helpers = new Helpers
 module.exports = class BookService {

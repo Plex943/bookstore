@@ -28,12 +28,13 @@ class Helpers {
         if (!token) {
             return res.status(401).json({message: "token inexistente"})
         }
-        
+
         const decoded = jwt.verify(token, "secret")
         const userid = decoded.id
         const user = await User.findOne({where: {id: userid}})
         return user
     }
+
     verifyAdmToken = async (req, res, next) => {
         if (!req.headers.authorization) {
             res.status(401).json({message: "token inexistente no header"})

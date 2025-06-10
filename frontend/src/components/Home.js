@@ -34,6 +34,7 @@ function Home() {
 
     return(
         <section className={styles.book_conteiner}>
+            <h1>Criado por <a href="linkedin.com/in/arthur-marques-956a08310/">Arthur Marques</a></h1>
             
             <section className={styles.search_conteiner}>
                 {search 

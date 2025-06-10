@@ -3,9 +3,6 @@ const Cart = require("../../../models/Cart")
 const User = require("../../../models/User")
 const Books = require("../../../models/Books")
 const Helpers = require("../../../utils/helpers")
-const { remove } = require("../../../../../controllers/booksController")
-const { use } = require("../Routes/cartRoutes")
-const { where } = require("sequelize")
 
 // configurando as relações das tabelas
 
@@ -23,8 +20,6 @@ module.exports = class CartServices {
         try {
             const token = await helpers.getUserToken(req)
             const user = await helpers.getUserByToken(token, res)
-            console.log(token)
-            console.log(user)
             if (!user) {
                 return "notUser"
             }
